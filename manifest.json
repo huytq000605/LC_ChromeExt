@@ -19,7 +19,7 @@
   ],
   "content_scripts": [
     {
-     "matches": ["https://*.leetcode.com/*", "http://*/*"],
+     "matches": ["https://*.leetcode.com/*"],
      "js": ["content_script.js"],
      "run_at": "document_start"
     }
