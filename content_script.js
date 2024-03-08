@@ -79,7 +79,7 @@ chrome.runtime.onMessage.addListener(
       if (message.actionType !== "download") {
         return
       }
-      downloadBlob(blob, blobFileName)
+      downloadBlob(blob, blobFileName.replaceAll(" ", "_"));
     }
 );
 
