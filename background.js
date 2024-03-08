@@ -61,9 +61,9 @@ ${question["hints"].join("\n")}
 
     let zip = new JSZip();
     let zipFileName = `${question.title}.zip`;
-    zip.folder(zipFileName).file("question.md", questionMD);
+    zip.folder(question.title).file("question.md", questionMD);
 		imgs.forEach(({fileName, blob}) => {
-			zip.folder(zipFileName).folder("assets").file(fileName, blob)
+			zip.folder(question.title).folder("assets").file(fileName, blob)
 		})
     let zipBase64 = await zip.generateAsync({ type: "base64" });
 
