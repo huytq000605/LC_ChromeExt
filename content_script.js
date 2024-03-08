@@ -1,4 +1,4 @@
-var s = document.createElement('script');
+let s = document.createElement('script');
 s.src = chrome.runtime.getURL('inject.js');
 s.onload = function() {
     // this.remove();
@@ -9,6 +9,8 @@ const expectedEvents = 4
 
 let eventListened = 0
 let question = {}
+let blob = null
+let blobFileName = null
 
 // 1. Get all question information
 document.addEventListener('leetcode', function (e) {
@@ -48,10 +50,11 @@ document.addEventListener('leetcode', function (e) {
 
 // 2. Tell service worker to gen the zip file
 document.addEventListener("genQuestion", async (e) => {
-  let resp = await chrome.runtime.sendMessage(question)
+  let resp = await chrome.runtime.sendMessage({question: question, actionType: "genQuestion"})
   let {fileName, zipBase64} = resp
-  let blob = base64ToBlob(zipBase64, "application/zip")
-  downloadBlob(blob, fileName)
+  blob = base64ToBlob(zipBase64, "application/zip")
+  blobFileName = fileName
+  // downloadBlob(blob, fileName)
 })
 
 // Function to convert base64 to Blob
@@ -70,6 +73,16 @@ function base64ToBlob(base64String, mimeType) {
   return new Blob([arrayBuffer], { type: mimeType });
 }
 
+// 3. Receive action from user to download
+chrome.runtime.onMessage.addListener(
+    function(message, sender, sendResponse) {
+      if (message.actionType !== "download") {
+        return
+      }
+      downloadBlob(blob, blobFileName)
+    }
+);
+
 // Function to download Blob
 function downloadBlob(blob, filename) {
   var url = URL.createObjectURL(blob);
@@ -81,3 +94,5 @@ function downloadBlob(blob, filename) {
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
+
+

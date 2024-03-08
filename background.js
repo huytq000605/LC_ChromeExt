@@ -16,7 +16,11 @@ const acceptedExtensions = new Set([
 const fileLinkRegex =
     /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g;
 
-const eventHandler = async function (question, sender, sendResponse) {
+const eventHandler = async function (message, sender, sendResponse) {
+    if (message.actionType !== "genQuestion") {
+      return
+    }
+    question = message.question
     // console.log(sender.tab ?
     //             "from a content script:" + sender.tab.url :
     //             "from the extension");
