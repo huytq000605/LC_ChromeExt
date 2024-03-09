@@ -30,10 +30,10 @@ document.addEventListener('leetcode', function (e) {
       question["content"] = resp.content
       break
     case "query singleQuestionTopicTags":
-      question["topics"] = resp.topicTags.map((e) => `- \`${e.name}\``)
+      question["topics"] = resp.topicTags.map((e) => `-\t\`${e.name}\``)
       break
     case "query questionHints":
-      question["hints"] = resp.hints.map((e) => `- \`${e}\``)
+      question["hints"] = resp.hints
       break
     default:
       eventListened -= 1
