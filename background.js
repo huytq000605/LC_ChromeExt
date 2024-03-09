@@ -48,6 +48,7 @@ ${question["content"]}
 
 <details>
 <summary> Related Topics </summary>
+
 ${question["topics"].join("\n")}
 </details>
 
