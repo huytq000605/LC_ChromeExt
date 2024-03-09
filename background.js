@@ -54,7 +54,10 @@ ${question["topics"].join("\n")}
 
 <details>
 <summary> Hints </summary>
-${question["hints"].join("\n")}
+${question["hints"].map((hint, idx) => {
+    return `Hint ${idx + 1}
+<details>${hint}</details>`
+}).join("\n")}
 </details>`;
 
 		console.log(imgs)
