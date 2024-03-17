@@ -75,6 +75,9 @@ ${question["hints"].map((hint, idx) => {
 };
 
 chrome.runtime.onMessage.addListener((question, sender, sendResponse) => {
+    if (message.actionType !== "genQuestion") {
+        return
+    }
 	// listener must return true to let sender knows that we will send response asynchronously
 	// listener cannot return a Promise
 	eventHandler(question, sender, sendResponse)

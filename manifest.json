@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Crawl LC",
   "description": "Crawl LC question",
-  "version": "1.3",
+  "version": "1.4",
   "action": {
     "default_popup": "popup.html",
     "default_icon": "lc.png"
